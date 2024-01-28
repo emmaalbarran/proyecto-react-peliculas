@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { HashRouter as Router, Route, Routes } from 'react-router-dom'; 
 import Home from './components/Home';
 import MovieDetail from './components/movie/MovieDetail';
-import './App.css'
+import './App.css';
 
 function App() {
+<<<<<<< HEAD
 
   const storedMovies = JSON.parse(localStorage.getItem('movies')) || [];
   const [movies, setMovies] = useState(storedMovies);
 
 
+=======
+  const storedMovies = JSON.parse(localStorage.getItem('movies')) || [];
+  const [movies, setMovies] = useState(storedMovies);
+
+>>>>>>> develop
   useEffect(() => {
     localStorage.setItem('movies', JSON.stringify(movies));
   }, [movies]);
@@ -25,5 +31,3 @@ function App() {
 }
 
 export default App;
-
-
