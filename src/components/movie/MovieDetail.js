@@ -7,10 +7,8 @@ const MovieDetail = ({ movies }) => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // Encontrar la película correspondiente por ID
   const movie = movies.find(movie => movie.id === parseInt(id, 10));
 
-  // Si la película no se encuentra, mostrar un mensaje y volver al inicio
   if (!movie) {
     return (
       <div>
@@ -20,7 +18,6 @@ const MovieDetail = ({ movies }) => {
     );
   }
 
-  // Si la película se encuentra, mostrar los detalles
   return (
     <div className={styles.movieDetailContainer}>
       <img src={movie.imageUrl} alt={movie.title} className={styles.movieImage} />

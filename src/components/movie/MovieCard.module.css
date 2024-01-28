@@ -1,5 +1,34 @@
-.moviecard{
-    align-items: center;
-    width: 18rem;
-    padding: 5px;
+.movieCard {
+    max-width: 300px;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 10px;
+}
+
+@media (min-width: 1200px) {
+    .moviesContainer {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .movieCard {
+        flex-basis: calc(25% - 20px); 
+    }
+}
+
+@media (max-width: 1200px) {
+    .searchResults .movieCard {
+        flex-basis: calc(33.33% - 20px); 
+    }
+}
+
+@media (max-width: 576px) {
+    .searchResults .moviesContainer {
+        padding: 5px; 
+        justify-content: center; 
+    }
+
+    .searchResults .movieCard {
+        flex-basis: calc(100% - 20px); 
+    }
 }

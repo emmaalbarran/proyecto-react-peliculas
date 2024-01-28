@@ -1,52 +1,75 @@
 @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Roboto&display=swap');
 
-/* MovieDetail.module.css */
-
 .movieDetailContainer {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    margin-top: 50px; /* Aumenta el margen superior para más espacio */
-  }
-  
-  .movieImage {
-    max-width: 400px; /* Ajusta el ancho máximo de la imagen según sea necesario */
-    margin-right: 40px; /* Aumenta el margen entre la imagen y los detalles */
-  }
-  
-  .movieDetails {
+    margin-top: 50px;
+}
+
+.movieImage {
+    max-width: 400px;
+    margin-right: 40px;
+}
+
+.movieDetails {
     max-width: 600px;
-  }
+}
 
 .titulo {
     font-family: "Lobster", sans-serif;
     font-weight: 400;
     font-style: normal;
     margin-bottom: 30px;
-    font-size: 36px; /* Ajusta el tamaño del título según sea necesario */
-  }
-  
-  .detalles {
+    font-size: 36px;
+}
+
+.detalles {
     font-family: "Roboto", sans-serif;
     font-weight: 400;
     font-style: normal;
-    font-size: 20px; /* Ajusta el tamaño del texto de los detalles según sea necesario */
-  }
+    font-size: 20px;
+}
 
-  .volverButton {
+.volverButton {
     background-color: black;
     color: white;
-    padding: 10px 20px; /* Ajusta el relleno del botón según sea necesario */
-    font-size: 16px; /* Ajusta el tamaño del texto del botón según sea necesario */
+    padding: 10px 20px;
+    font-size: 16px;
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s ease; /* Añade una transición de color suave */
+    transition: background-color 0.3s ease;
     border-radius: 10px;
     margin-top: 20px;
-  }
-  
-  .volverButton:hover {
-    background-color: #333; /* Cambia el color de fondo al pasar el ratón sobre el botón */
-  }
-  
-  
+}
+
+.volverButton:hover {
+    background-color: #333;
+}
+
+/* Regla para pantallas medianas */
+@media only screen and (max-width: 768px) {
+    .movieDetailContainer {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .movieImage {
+        max-width: 80%;
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .movieDetails {
+        text-align: center;
+        max-width: 80%;
+    }
+}
+
+/* Regla para pantallas pequeñas */
+@media only screen and (max-width: 576px) {
+    .movieDetails {
+        max-width: 100%;
+    }
+}

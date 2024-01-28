@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import SearchBar from './SearchBar';
 import MovieCard from './movie/MovieCard';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row, Button } from 'react-bootstrap';
 import styles from './Home.module.css';
+import './Home.module.css';
 
 const Home = ({ movies, setMovies }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [visibleMovies, setVisibleMovies] = useState(10); // Número inicial de películas visibles
-  const [loading, setLoading] = useState(false);
+  const containerRef = useRef();
 
   useEffect(() => {
     if (movies.length === 0) {
@@ -107,29 +108,33 @@ const Home = ({ movies, setMovies }) => {
         movie.genre.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setSearchResults(results);
+    setVisibleMovies(10); // Reiniciar el número de películas visibles al hacer una nueva búsqueda
   };
 
-  const handleScroll = () => {
-    if (
-      window.innerHeight + document.documentElement.scrollTop ===
-      document.documentElement.offsetHeight
-    ) {
-      // Cuando el usuario llega al final de la página, carga más películas
-      setLoading(true);
+  const handleLoadMore = () => {
+    setVisibleMovies((prevVisibleMovies) => prevVisibleMovies + 10);
+  };
 
-      setTimeout(() => {
-        setVisibleMovies((prevVisibleMovies) => prevVisibleMovies + 10);
-        setLoading(false);
-      }, 1000); // Simula una carga asíncrona
+  const isBottom = (element) => {
+    return element.getBoundingClientRect().bottom <= window.innerHeight;
+  };
+
+  const trackScrolling = () => {
+    const wrappedElement = containerRef.current;
+
+    if (isBottom(wrappedElement)) {
+      handleLoadMore();
     }
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
+    const wrappedElement = containerRef.current;
+    wrappedElement.addEventListener('scroll', trackScrolling);
+
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      wrappedElement.removeEventListener('scroll', trackScrolling);
     };
-  }, []); // Agrega/desmonta el event listener al montar/desmontar el componente
+  }, [trackScrolling]);
 
   return (
     <Container fluid className={styles.homecontainer}>
@@ -137,24 +142,22 @@ const Home = ({ movies, setMovies }) => {
       <div className={`mb-3 d-flex justify-content-center ${styles.searchbarcontainer}`}>
         <SearchBar onSearch={handleSearch} />
       </div>
-      <div className={`d-flex justify-content-center ${styles.moviesContainer}`}>
+      <div ref={containerRef} className={`d-flex justify-content-center ${styles.moviesContainer}`}>
         <Row className="justify-content-center">
-          {(searchResults.length > 0 ? searchResults : movies).slice(0, visibleMovies).map((movie) => (
-            <Col
-              key={movie.id}
-              xs={6}
-              sm={4}
-              md={3}
-              lg={2}
-              xl={2}
-              className={`mb-3 ${styles.movieCardContainer}`}
-            >
-              <MovieCard {...movie} />
+          {(searchResults.length > 0 ? searchResults : movies.slice(0, visibleMovies)).map((movie) => (
+            <Col key={movie.id} xs={6} sm={4} md={3} lg={2} xl={2} className={`mb-4 ${styles.movieCard}`}>
+              <MovieCard movie={movie} />
             </Col>
           ))}
         </Row>
-        {loading && <p className="text-center">Cargando más películas...</p>}
       </div>
+      {visibleMovies < (searchResults.length > 0 ? searchResults.length : movies.length) && (
+        <div className="d-flex justify-content-center mt-3">
+          <Button variant="primary" onClick={handleLoadMore}>
+            Cargar más películas
+          </Button>
+        </div>
+      )}
     </Container>
   );
 };
