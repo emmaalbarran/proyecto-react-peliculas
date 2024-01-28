@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { HashRouter as Router, Route, Routes } from 'react-router-dom'; // Importar HashRouter
 import Home from './components/Home';
 import MovieDetail from './components/movie/MovieDetail';
-import './App.css'
+import './App.css';
 
 function App() {
   // Obtener las películas almacenadas en localStorage o usar un array inicial
@@ -25,5 +25,3 @@ function App() {
 }
 
 export default App;
-
-
