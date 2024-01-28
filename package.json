@@ -1,7 +1,7 @@
 {
   "name": "proyecto-peliculas",
   "version": "0.1.0",
-  "homepage": "https://emmaalbarran.github.io/proyecto-react-peliculas",
+  "homepage": "https://emmaalbarran.github.io/proyecto-react-peliculas/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
