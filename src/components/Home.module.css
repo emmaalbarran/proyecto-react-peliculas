@@ -7,6 +7,22 @@
     text-align: center;
 }
 
-.homecontainer {
-    align-items: center;
+.searchbarcontainer {
+    margin-bottom: 20px;
+}
+
+.movieCardContainer {
+    max-width: 300px;
+    width: 100%;
+    box-sizing: border-box;
+}
+  
+.moviesContainer {
+    padding: 20px;
+}
+  
+@media (max-width: 576px) {
+.moviesContainer {
+    padding: 5px;;
+    }
 }

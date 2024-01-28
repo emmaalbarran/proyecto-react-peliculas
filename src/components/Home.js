@@ -6,8 +6,7 @@ import styles from './Home.module.css';
 
 const Home = ({ movies, setMovies }) => {
   const [searchResults, setSearchResults] = useState([]);
-
-  // Cargar películas iniciales si no hay ninguna
+  
   useEffect(() => {
     if (movies.length === 0) {
       const initialMovies = [
@@ -109,32 +108,34 @@ const Home = ({ movies, setMovies }) => {
   };
 
   return (
-    <Container className={styles.homecontainer}>
-      <h1 className={styles.title}>Peliculas</h1>
-      <div className={styles.searchbarcontainer}>
+    <Container fluid className={styles.homecontainer}>
+      <h1 className={`mb-4 ${styles.title}`}>Peliculas</h1>
+      <div className={`mb-3 d-flex justify-content-center ${styles.searchbarcontainer}`}>
         <SearchBar onSearch={handleSearch} />
       </div>
-      <Row xs={1} sm={2} md={3} lg={4} xl={5} xxl={6}>
-        {searchResults.length > 0
-          ? searchResults.map((movie) => (
-              <Col key={movie.id}>
-                <MovieCard
-                  movie={movie}
-                  onDelete={() => setMovies((prevMovies) => prevMovies.filter((m) => m.id !== movie.id))}
-                />
-              </Col>
-            ))
-          : movies.map((movie) => (
-              <Col key={movie.id}>
-                <MovieCard
-                  movie={movie}
-                  onDelete={() => setMovies((prevMovies) => prevMovies.filter((m) => m.id !== movie.id))}
-                />
-              </Col>
-            ))}
-      </Row>
+      <div className={`d-flex justify-content-center ${styles.moviesContainer}`}>
+        <Row className="justify-content-center">
+          {searchResults.length > 0
+            ? searchResults.map((movie) => (
+                <Col key={movie.id} xs={6} sm={4} md={3} lg={2} xl={2} className={`mb-3 ${styles.movieCardContainer}`}>
+                  <MovieCard
+                    movie={movie}
+                    onDelete={() => setMovies((prevMovies) => prevMovies.filter((m) => m.id !== movie.id))}
+                  />
+                </Col>
+              ))
+            : movies.map((movie) => (
+                <Col key={movie.id} xs={6} sm={4} md={3} lg={2} xl={2} className={`mb-3 ${styles.movieCardContainer}`}>
+                  <MovieCard
+                    movie={movie}
+                    onDelete={() => setMovies((prevMovies) => prevMovies.filter((m) => m.id !== movie.id))}
+                  />
+                </Col>
+              ))}
+        </Row>
+      </div>
     </Container>
-  );
-}
+  );    
+}  
 
 export default Home;

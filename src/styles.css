@@ -1,6 +1,8 @@
-/* styles.css */
-
 body {
-    background-color: #fce4ec;
-  }
+  background-color: #fce4ec;
+  max-width: 100%;
+  align-items: center;
+  margin-top: 30px;
+}
+
   
