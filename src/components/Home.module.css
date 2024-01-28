@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+.title {
+    font-family: 'Lobster', sans-serif;
+    font-weight: 400;
+    font-size: 50px;
+    text-align: center;
+}
+
+.homecontainer {
+    align-items: center;
+}

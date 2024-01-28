@@ -1,0 +1,16 @@
+.searchbar input {
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+}
+
+
+.searchbar {
+  display: flex;
+  max-width: 50%;
+  align-items: ;
+}
+
+
+.searchbar > * {
+  margin: 10px;
+}
