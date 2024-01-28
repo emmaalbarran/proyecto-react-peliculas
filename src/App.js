@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { HashRouter as Router, Route, Routes } from 'react-router-dom'; // Importar HashRouter
+import { HashRouter as Router, Route, Routes } from 'react-router-dom'; 
 import Home from './components/Home';
 import MovieDetail from './components/movie/MovieDetail';
 import './App.css';
 
 function App() {
-  // Obtener las películas almacenadas en localStorage o usar un array inicial
   const storedMovies = JSON.parse(localStorage.getItem('movies')) || [];
   const [movies, setMovies] = useState(storedMovies);
 
-  // Almacenar las películas en localStorage cada vez que cambien
   useEffect(() => {
     localStorage.setItem('movies', JSON.stringify(movies));
   }, [movies]);
