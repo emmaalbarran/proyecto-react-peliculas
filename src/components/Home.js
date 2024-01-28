@@ -6,7 +6,9 @@ import styles from './Home.module.css';
 
 const Home = ({ movies, setMovies }) => {
   const [searchResults, setSearchResults] = useState([]);
-  
+  const [visibleMovies, setVisibleMovies] = useState(10); // Número inicial de películas visibles
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     if (movies.length === 0) {
       const initialMovies = [
@@ -107,6 +109,28 @@ const Home = ({ movies, setMovies }) => {
     setSearchResults(results);
   };
 
+  const handleScroll = () => {
+    if (
+      window.innerHeight + document.documentElement.scrollTop ===
+      document.documentElement.offsetHeight
+    ) {
+      // Cuando el usuario llega al final de la página, carga más películas
+      setLoading(true);
+
+      setTimeout(() => {
+        setVisibleMovies((prevVisibleMovies) => prevVisibleMovies + 10);
+        setLoading(false);
+      }, 1000); // Simula una carga asíncrona
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []); // Agrega/desmonta el event listener al montar/desmontar el componente
+
   return (
     <Container fluid className={styles.homecontainer}>
       <h1 className={`mb-4 ${styles.title}`}>Peliculas</h1>
@@ -115,27 +139,24 @@ const Home = ({ movies, setMovies }) => {
       </div>
       <div className={`d-flex justify-content-center ${styles.moviesContainer}`}>
         <Row className="justify-content-center">
-          {searchResults.length > 0
-            ? searchResults.map((movie) => (
-                <Col key={movie.id} xs={6} sm={4} md={3} lg={2} xl={2} className={`mb-3 ${styles.movieCardContainer}`}>
-                  <MovieCard
-                    movie={movie}
-                    onDelete={() => setMovies((prevMovies) => prevMovies.filter((m) => m.id !== movie.id))}
-                  />
-                </Col>
-              ))
-            : movies.map((movie) => (
-                <Col key={movie.id} xs={6} sm={4} md={3} lg={2} xl={2} className={`mb-3 ${styles.movieCardContainer}`}>
-                  <MovieCard
-                    movie={movie}
-                    onDelete={() => setMovies((prevMovies) => prevMovies.filter((m) => m.id !== movie.id))}
-                  />
-                </Col>
-              ))}
+          {(searchResults.length > 0 ? searchResults : movies).slice(0, visibleMovies).map((movie) => (
+            <Col
+              key={movie.id}
+              xs={6}
+              sm={4}
+              md={3}
+              lg={2}
+              xl={2}
+              className={`mb-3 ${styles.movieCardContainer}`}
+            >
+              <MovieCard {...movie} />
+            </Col>
+          ))}
         </Row>
+        {loading && <p className="text-center">Cargando más películas...</p>}
       </div>
     </Container>
-  );    
-}  
+  );
+};
 
 export default Home;
